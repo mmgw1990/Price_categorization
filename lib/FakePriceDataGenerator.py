@@ -42,6 +42,6 @@ class FakePriceDataGenerator:
             
         now = datetime.now() # current date and time
         date_time = now.strftime("%Y%m%d_%H%M%S")
-        np.savetxt(cfg['data']['path'] + '{}_fake_price_data.csv'.format(date_time), random_numpy, delimiter=',')
-        print("Data generation completed!\n**** CSV can be found in: {}{}_fake_price_data.csv ****".format(cfg['data']['path'], date_time))
+        np.savetxt(cfg['fake_input_data']['path'] + '{}_fake_price_data.csv'.format(date_time), random_numpy, delimiter=',')
+        print("Data generation completed!\n**** CSV can be found in: {}{}_fake_price_data.csv ****".format(cfg['fake_input_data']['path'], date_time))
         return random_numpy

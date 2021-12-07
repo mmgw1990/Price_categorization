@@ -1,2 +1,5 @@
-data:
-  path: 'data/'
+fake_input_data:
+  path: '.\data\fakepricedata\'
+
+fake_output_data:
+  path: '.\data\pricecategorizeddata\'
