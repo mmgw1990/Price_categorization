@@ -1,4 +1,4 @@
 from lib import FakePriceDataGenerator
 
-fake_prices = FakePriceDataGenerator.FakePriceDataGenerator().generate_data(20000, 4)
+fake_prices = FakePriceDataGenerator.FakePriceDataGenerator().generate_data(40, 1)
 

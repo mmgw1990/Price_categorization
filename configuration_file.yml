@@ -3,3 +3,6 @@ fake_input_data:
 
 fake_output_data:
   path: '.\data\pricecategorizeddata\'
+
+histogram_optional_keys:
+  zscore: 'ZSCORE'

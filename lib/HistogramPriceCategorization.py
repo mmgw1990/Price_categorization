@@ -7,7 +7,7 @@ class HistogramPriceCategorization:
     def __init__(self):
         pass
 
-    def categorize_prices_with_hist(self, raw_price_vector):
+    def categorize_prices_with_hist(self, raw_price_vector, **kwargs):
         data_to_histogram = np.empty((raw_price_vector.shape[0], 2))
         data_to_histogram[:,0] = raw_price_vector
         hist, bin_edges = np.histogram(data_to_histogram[:,0], bins=4, density=True)
@@ -34,4 +34,6 @@ class HistogramPriceCategorization:
         # saving to csv data_to_histogram including raw prices in first column and categorization in 2nd column
         now = datetime.now() # current date and time
         date_time = now.strftime("%Y%m%d_%H%M%S")
-        np.savetxt(cfg['fake_output_data']['path'] + '{}_fake_price_data.csv'.format(date_time), data_to_histogram, delimiter=',')
+        if cfg['histogram_optional_keys']['zscore'] not in kwargs:
+            np.savetxt(cfg['fake_output_data']['path'] + '{}_fake_price_data.csv'.format(date_time), data_to_histogram, delimiter=',')
+        return data_to_histogram

@@ -1,8 +1,12 @@
 import glob
 from initialize_configuration_file import cfg
 import numpy as np
-from lib import HistogramPriceCategorization
+from lib import HistogramPriceCategorization, ZScore
 import random
+from scipy import stats
+from datetime import datetime
+
+score = ZScore.ZScore()
 
 # HistogramPriceCategorization object initialization
 histogram_categorization = HistogramPriceCategorization.HistogramPriceCategorization()
@@ -19,6 +23,12 @@ if len(csv_load.shape) == 2:
 else:
     col_number = 0
     raw_price_vector = csv_load
-
+#standardize data with zscore
+zscored_price_vector = stats.zscore(raw_price_vector, nan_policy='omit')
 # Categorizing fake input price data using histogram's bin edges, and saving output into /data/pricecategorizeddata
-output = histogram_categorization.categorize_prices_with_hist(raw_price_vector)
+zscored_output = histogram_categorization.categorize_prices_with_hist(zscored_price_vector, ZSCORE = True)
+zscored_output[:,0] = raw_price_vector
+
+now = datetime.now() # current date and time
+date_time = now.strftime("%Y%m%d_%H%M%S")
+np.savetxt(cfg['fake_output_data']['path'] + '{}_fake_price_data.csv'.format(date_time), zscored_output, delimiter=',')
