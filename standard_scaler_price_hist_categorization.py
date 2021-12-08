@@ -5,8 +5,11 @@ from lib import HistogramPriceCategorization, ZScore, SaveOutputCsv
 import random
 from scipy import stats
 from datetime import datetime
+from sklearn.preprocessing import StandardScaler
 
 saveCSV = SaveOutputCsv.SaveOutputCsv()
+scaler = StandardScaler()
+
 
 # HistogramPriceCategorization object initialization
 histogram_categorization = HistogramPriceCategorization.HistogramPriceCategorization()
@@ -23,9 +26,10 @@ if len(csv_load.shape) == 2:
 else:
     col_number = 0
     raw_price_vector = csv_load
-#standardize data with zscore
-zscored_price_vector = stats.zscore(raw_price_vector, nan_policy='omit')
+
+# standardize data with StandardScaler
+standardscaler_price_vector = scaler.fit_transform(raw_price_vector.reshape(-1,1))
 # Categorizing fake input price data using histogram's bin edges, and saving output into /data/pricecategorizeddata
-zscored_output = histogram_categorization.categorize_prices_with_hist(zscored_price_vector, ZSCORE = True)
-zscored_output[:,0] = raw_price_vector
-saveCSV.save_csv(zscored_output)
+standardscaler_output = histogram_categorization.categorize_prices_with_hist(standardscaler_price_vector.reshape(-1), ZSCORE = True)
+standardscaler_output[:,0] = raw_price_vector
+saveCSV.save_csv(standardscaler_output)
