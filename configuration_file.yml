@@ -7,5 +7,8 @@ fake_output_data:
 histogram_optional_keys:
   zscore: 'ZSCORE'
 
+output_plots:
+  path: '.\data\histograms\'
+
 price_category:
   number: 4

@@ -1,14 +1,17 @@
 import glob
 from initialize_configuration_file import cfg
 import numpy as np
-from lib import HistogramPriceCategorization, ZScore, SaveOutputCsv
+from lib import HistogramPriceCategorization, ZScore, SaveOutputCsv, PlotHistogram
 import random
 from scipy import stats
 from datetime import datetime
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
 saveCSV = SaveOutputCsv.SaveOutputCsv()
 scaler = StandardScaler()
+plotting = PlotHistogram.PlotHistogram()
+
 
 
 # HistogramPriceCategorization object initialization
@@ -31,5 +34,10 @@ else:
 standardscaler_price_vector = scaler.fit_transform(raw_price_vector.reshape(-1,1))
 # Categorizing fake input price data using histogram's bin edges, and saving output into /data/pricecategorizeddata
 standardscaler_output = histogram_categorization.categorize_prices_with_hist(standardscaler_price_vector.reshape(-1), ZSCORE = True)
+# plotting standardized data
+plotting.plot_histogram(standardscaler_output[:,0])
+# plotting raw/unstandardized data
 standardscaler_output[:,0] = raw_price_vector
+plotting.plot_histogram(standardscaler_output[:,0])
+#saving to file categorized, raw/unstandardized data
 saveCSV.save_csv(standardscaler_output)
