@@ -1,14 +1,14 @@
 fake_input_data:
-  path: '.\data\fakepricedata\'
-
+  #Windows path: '.\data\fakepricedata\'
+  path: './data/fakepricedata/'
 fake_output_data:
-  path: '.\data\pricecategorizeddata\'
-
+  #Windows path: '.\data\pricecategorizeddata\'
+  path: './data/pricecategorizeddata/'
 histogram_optional_keys:
   zscore: 'ZSCORE'
 
 output_plots:
-  path: '.\data\histograms\'
-
+  #Windows path: '.\data\histograms\'
+  path: './data/histograms/'
 price_category:
   number: 4
